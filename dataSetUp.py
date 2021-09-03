@@ -1,4 +1,4 @@
-import functions as fun
+import Functions as fun
 
 Match = []
 Match_Results = []
@@ -36,5 +36,6 @@ with open("./Data/TeamAttributes.csv","r") as teamAttributesData:
         Attributes.append(line[:-1].split(","))
 del Attributes[0]    
         
-for t in Attributes:
-    TeamAttributes.append([int(t[4]), int(t[5]), int(t[6]), int(t[7]), int(t[8]), int(t[9]), int(t[10]), int(t[11])])
+#for t in Attributes:
+    #TeamAttributes.append([int(t[4]), int(t[5]), int(t[6]), int(t[7]), int(t[8]), int(t[9]), int(t[10]), int(t[11])])
+    
