@@ -96,9 +96,9 @@ def score_weights(test_set,w,fold,match_results):
     return [correct,wrong]
 
 def cal_output(output):
-    if(output == "H"):
+    if output == "H":
         return [1,0,0]
-    elif(output == "D"):
+    elif output == "D":
         return [0,1,0]
-    else:
+    elif output == "A":
         return [0,0,1]

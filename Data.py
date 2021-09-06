@@ -42,7 +42,7 @@ with open("./Data/TeamAttributes.csv","r") as teamAttributesData:
 del Attributes[0]    
         
 for t in Attributes:
-    TeamAttributes.append([int(t[2]), float(t[4]), float(t[6]), float(t[9]), float(t[11]), float(t[13]), float(t[16]), float(t[18]), float(t[20])])
+    TeamAttributes.append([int(t[2]), float(t[4])/50, float(t[6])/50, float(t[9])/50, float(t[11])/50, float(t[13])/50, float(t[16])/50, float(t[18])/50, float(t[20])/50])
     
 for m in Match:
     home_team_api_id = int(m[7])
@@ -59,7 +59,7 @@ for m in Match:
                          float(m[17]), float(m[18]), float(m[19]), float(m[20]), float(m[21]), float(m[22])])         
     home_goals = m[9]   #Home Goals
     away_goals = m[10]  #Away Goals
-    result = fun.match_result(Gmh,Gma)
+    result = fun.match_result(home_goals,away_goals)
     output = fun.cal_output(result)
     MatchFeaturesOutput.append(output)
             
