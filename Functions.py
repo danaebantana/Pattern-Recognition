@@ -102,3 +102,31 @@ def cal_output(output):
         return [0,1,0]
     elif output == "A":
         return [0,0,1]
+    
+def k_fold_cross_validation_NEW(inputs,k_fold):
+    num_of_matches = len(inputs)
+    fold = int(num_of_matches/k_fold)   #number of matches in each fold. #fold = 2259
+    totalMatches = fold*k_fold   #total number of matches for 10 folds.
+    testing_set = [] 
+    training_set = []
+    for k in range(k_fold):   #fold=0 to 9
+        start_test_point = k*fold   #0, 2259, 4518 ...
+        for m in range(0,totalMatches,fold):  # for each_fold 
+            if(m == start_test_point):
+                testing_set.append(inputs[m:m+fold]) #matches of each fold for testing
+            else:
+                if(len(training_set) < k+1):
+                    training_set.append(inputs[m:m+fold])
+                else:
+                    training_set[k] += inputs[m:m+fold]
+    return training_set,testing_set
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
