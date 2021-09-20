@@ -4,21 +4,16 @@ from sklearn.preprocessing import StandardScaler as standardScaler
 import Data as data
 import Functions as fun 
 
-#Multi-layer Perceptron is sensitive to feature scaling, so it is highly recommended to scale your data. 
-#For example, scale each attribute on the input vector X to [0, 1] or [-1, +1], or standardize it to have mean 0 and variance 1.
 scaler = standardScaler()  
-#scaler = scaler.fit(data.MatchFeatures)
-#MatchFeatures = scaler.transform(data.MatchFeatures)
 
-MatchFeatures = data.MatchFeatures
-MatchOutputs = data.MatchFeaturesOutput
+MatchFeatures, MatchOutputs = data.loadMLPData()
 
 k = 10
 training_sets,testing_sets = fun.k_fold_cross_validation(MatchFeatures,k)
 training_outputs,testing_outputs = fun.k_fold_cross_validation(MatchOutputs,k)
 
-MLP = MLPClassifier(solver='sgd', activation='logistic', learning_rate_init= 0.01, momentum=0.9, hidden_layer_sizes=(12, 3), random_state=1, max_iter=500)
-
+MLP = MLPClassifier(solver='sgd', activation='logistic', batch_size=54, learning_rate_init= 0.01, momentum=0.9, 
+                    hidden_layer_sizes=(10, 3), random_state=1, max_iter=300)
 scores = []
 
 #FOREACH FOLD
@@ -28,14 +23,14 @@ for fold in range(k):
     scaler.fit(x_train)
     x_train = scaler.transform(x_train)
     y_train = training_outputs[fold]
-    MLP.fit(x_train, y_train)  
+    MLP.fit(x_train, y_train)   #Train MLP classifier
     
     #TEST FOR FOLD k
     x_test = testing_sets[fold]
     x_test = scaler.transform(x_test)
     y_test = testing_outputs[fold]
-    y_pred = MLP.predict(x_test) 
-    score = accuracy_score(y_test, y_pred)
+    y_pred = MLP.predict(x_test) #Test MLP classifier
+    score = accuracy_score(y_test, y_pred)  #calculate accuracy
     print('Fold:', fold+1, 'Accuracy:', score)
     scores.append(score)
 
